@@ -1,5 +1,6 @@
 
-version: '3'
+version: '3.9'
+
 services:
   app:
     build:
@@ -39,6 +40,20 @@ services:
       - ${SMTP_GUI_PORT}:1080
     networks:
       - app-network
+  
+  supervisor:
+        container_name: local_supervisor
+        build:
+            context: docker/dockerfile/
+            dockerfile: supervisor.dockerfile
+        image: local_supervisor:v1.0
+        volumes:
+            - '.:/var/www/html/laravel_app'
+            - ./docker/supervisor/conf.d:/etc/supervisor/conf.d/
+        working_dir: /var/www/html/laravel_app
+        networks:
+            - app-network
+        restart: always
 
 networks:
   app-network:
