@@ -13,7 +13,7 @@ class ClienteRepository
 
     public function getClienteById(int $id) 
     {
-        return Cliente::findOrFail($id);
+        return Cliente::find($id);
     }
 
     public function deleteCliente(int $id) 

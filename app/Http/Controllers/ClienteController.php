@@ -43,11 +43,17 @@ class ClienteController extends Controller
      */
     public function store(StoreClienteRequest $request): JsonResponse
     {
-        $validateData = $request->validate();
-        
-        return response()->json([
-            'data' => $this->repository->createCliente($validateData)
-        ], HttpResponse::HTTP_CREATED);
+        try {
+            return response()->json([
+                'data' => $this->repository->createCliente($request->toArray())
+            ], HttpResponse::HTTP_CREATED);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'data' => [],
+                'status' => '500'
+            ]);
+        }
     }
 
     /**
@@ -92,8 +98,10 @@ class ClienteController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
+        Log::info('chegou no destroy');
+        
         return response()->json([
             'data' => $this->repository->deleteCliente($id)
         ], HttpResponse::HTTP_NO_CONTENT);
