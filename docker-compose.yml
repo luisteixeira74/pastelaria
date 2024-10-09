@@ -48,9 +48,9 @@ services:
             dockerfile: supervisor.dockerfile
         image: local_supervisor:v1.0
         volumes:
-            - '.:/var/www/html/laravel_app'
+            - '.:/var/www/html'
             - ./docker/supervisor/conf.d:/etc/supervisor/conf.d/
-        working_dir: /var/www/html/laravel_app
+        working_dir: /var/www/html
         networks:
             - app-network
         restart: always
