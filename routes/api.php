@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\PedidoController;
+use App\Http\Controllers\ProdutoController;
 use App\Mail\PedidoEmail;
 use Illuminate\Support\Facades\Mail;
 
@@ -21,6 +23,17 @@ Route::get('clientes/{id}', [ClienteController::class, 'show']);
 Route::post('clientes', [ClienteController::class, 'store']);
 Route::delete('clientes/{id}', [ClienteController::class, 'destroy']);
 
+Route::get('produtos/', [ProdutoController::class, 'index']);
+Route::put('produtos/{id}', [ProdutoController::class, 'update']);
+Route::get('produtos/{id}', [ProdutoController::class, 'show']);
+Route::post('produtos', [ProdutoController::class, 'store']);
+Route::delete('produtos/{id}', [ProdutoController::class, 'destroy']);
+
+// Efetuar pedido
+Route::post('pedidos', [PedidoController::class, 'store']);
+
+
+// Envia o email com o pedido
 Route::any('send-test-email', function (Request $request) {
     Mail::to($request->email)->queue(new PedidoEmail);
 

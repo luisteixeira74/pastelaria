@@ -25,4 +25,10 @@ class Cliente extends Model
         'bairro',
         'cep',
     ];
+
+    public function pedidos()
+    {
+        return $this->hasMany(Pedido::class);
+    }
 }
+    
