@@ -25,12 +25,13 @@
 <body>
 <div class="email-container">
     <div class="email-content">
-        <h1>Novo Pedido #{{ $pedidoId }}</h1>
+        <h1>Novo Pedido # {{ $pedidoId }}</h1>
         <p>Cliente: {{ $clienteNome }}</p>
-        <div>
-            <p>Produtos:</p>
-            
-        </div>
+        <p>Produtos: </p>
+        @foreach($produtos as $p)
+            <p>{{ $p['nome'] }}</p>
+            <img src="{{ url($p['foto']) }}"/>
+        @endforeach
     </div>
 </div>
 </body>

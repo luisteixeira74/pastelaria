@@ -7,6 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class PedidoEmail extends Mailable
 {
@@ -27,22 +28,22 @@ class PedidoEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Novo Pedido #',
+            subject: 'Pedido #' . $this->pedido['pedidoToken'],
         );
     }
 
     /**
      * Get the message content definition.
      */
-    public function content(): Content
+    public function build()
     {
-        return new Content(
-            view: 'emails.pedido',
-            with: [
-                'pedidoId' => $this->pedido['pedidoToken'],
-                'clienteNome' => $this->pedido['clienteNome'],
-            ]
-        );
+        return $this->view('emails.pedido')
+                    ->with([
+                        'pedidoId' => $this->pedido['pedidoToken'],
+                        'clienteNome' => $this->pedido['clienteNome'],
+                        'produtos' => $this->pedido['produtos']
+                    ]);
+        
     }
 
     /**

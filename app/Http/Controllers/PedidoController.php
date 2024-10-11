@@ -5,17 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Cliente;
 use App\Models\Pedido;
 use App\Models\Produto;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 use App\Mail\PedidoEmail;
 use Illuminate\Support\Facades\Mail;
-use Nette\Utils\Random;
 
 class PedidoController extends Controller
 {
@@ -62,10 +57,11 @@ class PedidoController extends Controller
 
             $produtosIdList = Arr::pluck($request['produtos'], 'produto_id');
 
-            $pedidoToken = Random::generate(1000000000, '0-9');
+            $pedidoToken = random_int(1,100) . random_int(1,100);
             $clienteNome = $cliente['nome'];
 
             $produtosCollection = [];
+            $imageFolder = 'pasteis-images/';
             foreach($produtosIdList as $produtoId) {
                 $produto = Produto::find($produtoId)->toArray();
 
@@ -86,7 +82,7 @@ class PedidoController extends Controller
                 $pedido->save();
 
                 $produtosCollection[] = [
-                    'foto' => $produto['foto'],
+                    'foto' => $imageFolder . $produto['foto'],
                     'nome' => $produto['nome']
                 ];
             }
@@ -94,12 +90,10 @@ class PedidoController extends Controller
             $pedidoFull = [
                 'pedidoToken' => $pedidoToken,
                 'clienteNome' => $clienteNome,
-                'produtosList' => $produtosCollection
+                'produtos' => $produtosCollection
             ];
 
             Mail::to('test@example.com')->queue(new PedidoEmail($pedidoFull));
-
-            Log::info('Fim do pedido');
 
             return response()->json([
                 'data' => [],
