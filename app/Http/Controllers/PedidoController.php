@@ -2,8 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cliente;
+use App\Models\Pedido;
+use App\Models\Produto;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response as HttpResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+use App\Mail\PedidoEmail;
+use Illuminate\Support\Facades\Mail;
+use Nette\Utils\Random;
 
 class PedidoController extends Controller
 {
@@ -34,20 +46,74 @@ class PedidoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store($request)
+    public function store(Request $request): JsonResponse
     {
-        dd($request);
-        // try {
-        //     return response()->json([
-        //         'data' => $this->repository->createProduto($request->toArray())
-        //     ], HttpResponse::HTTP_CREATED);
 
-        // } catch (\Throwable $th) {
-        //     return response()->json([
-        //         'data' => [],
-        //         'status' => '500'
-        //     ]);
-        // }
+        try {
+            $cliente = Cliente::find($request['cliente_id'])->toArray();
+
+            if (!$cliente ) {
+                return response()->json([
+                    'data' => [],
+                    'status' => HttpResponse::HTTP_BAD_REQUEST,
+                    'message' => 'Cliente não encontrado'
+                ]);
+            }
+
+            $produtosIdList = Arr::pluck($request['produtos'], 'produto_id');
+
+            $pedidoToken = Random::generate(1000000000, '0-9');
+            $clienteNome = $cliente['nome'];
+
+            $produtosCollection = [];
+            foreach($produtosIdList as $produtoId) {
+                $produto = Produto::find($produtoId)->toArray();
+
+                if (!$produto) {
+                    return response()->json([
+                        'data' => [],
+                        'status' => HttpResponse::HTTP_BAD_REQUEST,
+                        'message' => 'Produto não encontrado'
+                    ]);
+                }
+
+                $pedido = new Pedido([
+                    'cliente_id' => $cliente['id'],
+                    'produto_id' => $produto['id'],
+                    'pedido_token' => $pedidoToken
+                ]);
+
+                $pedido->save();
+
+                $produtosCollection[] = [
+                    'foto' => $produto['foto'],
+                    'nome' => $produto['nome']
+                ];
+            }
+
+            $pedidoFull = [
+                'pedidoToken' => $pedidoToken,
+                'clienteNome' => $clienteNome,
+                'produtosList' => $produtosCollection
+            ];
+
+            Mail::to('test@example.com')->queue(new PedidoEmail($pedidoFull));
+
+            Log::info('Fim do pedido');
+
+            return response()->json([
+                'data' => [],
+                'status' => HttpResponse::HTTP_CREATED,
+                'message' => 'Pedido efetuado com sucesso'
+            ]);
+       
+        } catch (\Throwable $th) {
+            return response()->json([
+                'data' => [],
+                'status' => '500',
+                'message' => $th->getMessage()
+            ]);
+        }
     }
 
     /**

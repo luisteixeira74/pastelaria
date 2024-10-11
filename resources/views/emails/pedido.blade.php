@@ -29,8 +29,7 @@
         <p>Cliente: {{ $clienteNome }}</p>
         <div>
             <p>Produtos:</p>
-            <p>Pastel de Queijo</p>
-            <img src="{{asset('public/pasteis-images/pastel_img1.png')}}">
+            
         </div>
     </div>
 </div>

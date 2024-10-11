@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -13,12 +12,13 @@ class PedidoEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $pedido = [];
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(array $pedido)
     {
-        //
+        $this->pedido = $pedido;
     }
 
     /**
@@ -27,7 +27,7 @@ class PedidoEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Pedido Email',
+            subject: 'Novo Pedido #',
         );
     }
 
@@ -38,6 +38,10 @@ class PedidoEmail extends Mailable
     {
         return new Content(
             view: 'emails.pedido',
+            with: [
+                'pedidoId' => $this->pedido['pedidoToken'],
+                'clienteNome' => $this->pedido['clienteNome'],
+            ]
         );
     }
 

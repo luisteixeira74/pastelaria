@@ -5,8 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ProdutoController;
-use App\Mail\PedidoEmail;
-use Illuminate\Support\Facades\Mail;
 
 Route::get('/', function() {
     return 'chegou na raiz';
@@ -34,8 +32,8 @@ Route::post('pedidos', [PedidoController::class, 'store']);
 
 
 // Envia o email com o pedido
-Route::any('send-test-email', function (Request $request) {
-    Mail::to($request->email)->queue(new PedidoEmail);
+// Route::any('send-test-email', function (Request $request) {
+//     Mail::to($request->email)->queue(new PedidoEmail);
 
-    return response()->json();
-});
+//     return response()->json();
+// });

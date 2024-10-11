@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
+            $table->string('pedido_token');
             $table->softDeletes();
             $table->timestamps();
             $table->foreignId('cliente_id')->constrained(
