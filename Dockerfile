@@ -24,6 +24,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/app
 
 RUN chown -R www-data: /var/www/app
+#RUN chown -R www-data:www-data /var/www/app
 #RUN chmod -R 777 /var/www/html/storage
 
 #RUN cd /var/wwww/app && php artisan queue:listen

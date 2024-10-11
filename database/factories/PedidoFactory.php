@@ -8,7 +8,7 @@ use App\Models\Produto;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Produto>
  */
-class ProdutoFactory extends Factory
+class PedidoFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,9 +18,9 @@ class ProdutoFactory extends Factory
     public function definition(): array
     {
         return [
-            'nome' => fake()->name(),
-            'preco' => fake()->numerify('##.##'),
-            'foto' => 'pastel_img1.png'
+            'pedido_token' => fake()->word(),
+            'cliente_id' => 1,
+            'produto_id' => 1,
         ];
     }
 }

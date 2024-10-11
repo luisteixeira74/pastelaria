@@ -26,6 +26,6 @@ class ProdutoTest extends TestCase
         $produto = Produto::factory()->create();
         $produto->delete();
 
-        $this->assertSoftDeleted($produto);
+        $this->assertSoftDeleted('produtos');
     }
 }

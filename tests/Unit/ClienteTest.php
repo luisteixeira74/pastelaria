@@ -4,7 +4,6 @@ namespace Tests\Unit;
 
 use Tests\TestCase;
 use App\Models\Cliente;
-use GuzzleHttp\Client;
 
 class ClienteTest extends TestCase
 {
