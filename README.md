@@ -5,26 +5,58 @@ with Mailer, Queue and Supervisor
 - Database: Sqlite
 
 - tabelas: clientes, produtos, pedidos
+
 ## Installation 
 
 - clonar o projeto pastelaria
-
 - cd pastelaria
+- cp .env.example .env
+- php artisan key:generate
 
 ```
 - executar: docker-compose up -d --build
 
-- Executar a migrate com seeder para popular 2 Clientes e 8 Produtos
-	php artisan migrate --seed
+- se der erro, docker-compose down e repetir o comando de up
+
+- Entrar no container Laravel_app para criar as tabelas Clientes e Produtos
+
+php artisan migrate --seed
+```
+
+
+
+- no container do Laravel_app, dar permissão de escrita no database:
+```
+chmod 777 -R database/
+```
 
 - Executar testes unitários: php artisan test
+
+- Acessar o MailCatcher em //http://localhost:1080 (interface para os emails)
+
+- Efetuar o Post para cadastrar um pedido: http://127.0.0.1:8000/api/pedidos (POST)
+
+- o corpo (body) deve ser baseado no exemplo:
+
 ```
+{
+  "cliente_id":1,
+  "produtos": [
+    {"produto_id": 1},
+    {"produto_id": 4},
+    {"produto_id": 3}
+    ]
+}
+```
+
+- Caso o pedido não apareça no MailCatcher, reiniciar o container do supervisor para destravar a fila
+- O mailcatcher as vezes não dá refresh automático
+
 ## Support
 
 - os 8 produtos possuem foto, se criar um novo precisa selecionar uma foto existente
 - Containers: laravel_app, nginx, mailcatcher, supervisor
 - collections com as principais Requests (Thunder Client) disponibilizadas na raiz do projeto
-- para consultar os pedidos que chegam por email, acessar a interface do MailCatcher em http://localhost:1080
 
 ## Possiveis Problemas
 
@@ -45,24 +77,11 @@ php artisan cache:clear
 php artisan config:cache
 ```
 
-Se as mensagens não chegarem no MailCatcher, restart na Queue
-```php artisan queue:restart
+Se as mensagens não chegarem no MailCatcher, restart na Queue no container Laravel_app
+
+```
+php artisan queue:restart
 ```
 ## TODO 
 
 refatoração para eliminar a coluna pedidos.pedidoToken
-
-## Features
-
-- O mailcatcher as vezes não dá refresh automático, usar o refresh do navegador
-- o endpoint para efetuar pedidos é: http://127.0.0.1:8000/api/pedidos (POST)
-- o corpo (body) deve ser baseado no exemplo:
-
-{
-  "cliente_id":1,
-  "produtos": [
-    {"produto_id": 1},
-    {"produto_id": 4},
-    {"produto_id": 3}
-    ]
-}
