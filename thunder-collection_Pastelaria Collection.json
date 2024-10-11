@@ -1,0 +1,115 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "Pastelaria Collection",
+    "collectionId": "978b0d98-ca8d-4ce1-9102-f5db511d3b1f",
+    "dateExported": "2024-10-11T18:02:06.684Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "ee7e9c50-f28a-4521-9d1b-6bd533b85963",
+            "colId": "978b0d98-ca8d-4ce1-9102-f5db511d3b1f",
+            "containerId": "",
+            "name": "http://127.0.0.1:8000/api/pedidos (Efetua Pedido)",
+            "url": "http://127.0.0.1:8000/api/pedidos",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-10-10T20:09:54.282Z",
+            "modified": "2024-10-10T21:35:45.787Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"cliente_id\":1,\n  \"produtos\": [\n    {\"produto_id\": 1},\n    {\"produto_id\": 2},\n    {\"produto_id\": 3}\n    ]\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "101daf55-fd8d-4522-8c7b-7f85c604cc81",
+            "colId": "978b0d98-ca8d-4ce1-9102-f5db511d3b1f",
+            "containerId": "",
+            "name": "http://127.0.0.1:8000/produtos (List)",
+            "url": "http://127.0.0.1:8000/api/produtos",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-10-10T20:10:40.778Z",
+            "modified": "2024-10-10T20:10:40.778Z",
+            "headers": []
+        },
+        {
+            "_id": "4a504b12-46b9-4343-9303-60b5704075d4",
+            "colId": "978b0d98-ca8d-4ce1-9102-f5db511d3b1f",
+            "containerId": "",
+            "name": "http://127.0.0.1:8000/clientes/id (show ById)",
+            "url": "http://127.0.0.1:8000/api/clientes/3",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-10-10T20:11:50.108Z",
+            "modified": "2024-10-10T20:11:50.108Z",
+            "headers": []
+        },
+        {
+            "_id": "30f2326f-dc2b-4c10-9c7c-facc169b76aa",
+            "colId": "978b0d98-ca8d-4ce1-9102-f5db511d3b1f",
+            "containerId": "",
+            "name": "http://127.0.0.1:8000/clientes/2 (Del)",
+            "url": "http://127.0.0.1:8000/api/clientes/2",
+            "method": "DELETE",
+            "sortNum": 40000,
+            "created": "2024-10-10T20:12:02.147Z",
+            "modified": "2024-10-10T20:12:02.147Z",
+            "headers": []
+        },
+        {
+            "_id": "22e4b2c0-c4db-47ef-b2fa-15acd834f0bd",
+            "colId": "978b0d98-ca8d-4ce1-9102-f5db511d3b1f",
+            "containerId": "",
+            "name": "http://127.0.0.1:8000/clientes (Create)",
+            "url": "http://127.0.0.1:8000/api/clientes",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2024-10-10T20:12:12.184Z",
+            "modified": "2024-10-10T20:12:12.184Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nome\": \"Bora de teste\",\n  \"email\": \"boradeteste@teste.com\",\n  \"telefone\": \"1199000001\",\n  \"data_nascimento\": \"30-30-1999\",\n  \"endereço\": \"endereço teste\",\n  \"complemento\": \"apto X\",\n  \"bairro\": \"Bairro ttt\",\n  \"cep\": \"05344555\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "2c4e0038-a638-4fd9-a97b-a6b23a5f7fcd",
+            "colId": "978b0d98-ca8d-4ce1-9102-f5db511d3b1f",
+            "containerId": "",
+            "name": "http://127.0.0.1:8000/clientes/2 (Edit)",
+            "url": "http://127.0.0.1:8000/api/clientes/2",
+            "method": "PUT",
+            "sortNum": 60000,
+            "created": "2024-10-10T20:12:20.881Z",
+            "modified": "2024-10-10T20:12:20.881Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"telefone\": \"1199000000\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "fc547978-ac2b-4039-959c-1fc980509331",
+            "colId": "978b0d98-ca8d-4ce1-9102-f5db511d3b1f",
+            "containerId": "",
+            "name": "http://127.0.0.1:8000/clientes (List)",
+            "url": "http://127.0.0.1:8000/api/clientes",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2024-10-10T20:12:38.177Z",
+            "modified": "2024-10-10T20:12:38.177Z",
+            "headers": []
+        }
+    ],
+    "ref": "CinmYxszgpkmskxGcy6b8F40TweAOTyA-86FwZmcEsDEZvvPFKdMHKlb1VkJH9ptBH6vorIB-6M7qNdi00frUQ"
+}
