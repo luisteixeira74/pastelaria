@@ -1,4 +1,4 @@
-# Sistema Backend Pastelaria em Laravel PHP com envio de email
+# Projeto Backend para efetuar pedidos em Laravel PHP com envio de email Fake
 
 with Mailer, Queue and Supervisor
 
@@ -8,8 +8,8 @@ with Mailer, Queue and Supervisor
 
 ## Installation 
 
-- clonar o projeto pastelaria
-- cd pastelaria
+- clonar o projeto api-pedidos-laravel
+- cd api-pedidos-laravel
 - cp .env.example .env
 - php artisan key:generate
 
